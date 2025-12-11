@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Tasks & Notes Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="header">
+    <h1>Daily Tasks & Notes</h1>
+    <p>Organize your day, one task at a time ✨</p>
+</header>
+    <h1>Daily Tasks & Notes Manager</h1>
+
+ <form action="/add" method="post" class="task-form">
+    <input type="text" name="task" placeholder="New task..." required>
+
+    <select name="priority">
+        <option value="High">High</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Low">Low</option>
+    </select>
+
+    <input type="text" name="category" placeholder="Category">
+
+    <button type="submit">Add</button>
+</form>
+
+    <ul class="task-list">
+    {% for task in tasks %}
+    <li class="{% if task[2] == 1 %}done{% endif %}">
+        <span>
+            <strong>{{ task[1] }}</strong>
+            <small>({{ task[3] }} | {{ task[4] }})</small>
+        </span>
+
+        <div>
+            <a href="/done/{{ task[0] }}">✅</a>
+            <a href="/delete/{{ task[0] }}">❌</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
